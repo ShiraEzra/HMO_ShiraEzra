@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HMOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CoronaTest">
+          <Key>
+            <PropertyRef Name="Code_coronaTest" />
+          </Key>
+          <Property Name="Code_coronaTest" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description_coronaTest" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Code_user" />
+          </Key>
+          <Property Name="Code_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName_user" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName_user" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="ID_user" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="DateOfBirth_user" Type="date" Nullable="false" />
+          <Property Name="City_user" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Address_user" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPerCoronaTest">
+          <Key>
+            <PropertyRef Name="Code_userPerCT" />
+          </Key>
+          <Property Name="Code_userPerCT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeUser_userPerCT" Type="int" Nullable="false" />
+          <Property Name="CodeCT_userPerCT" Type="int" Nullable="false" />
+          <Property Name="Date_userPerCT" Type="date" Nullable="false" />
+          <Property Name="Result_userPerCT" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPerVaccination">
+          <Key>
+            <PropertyRef Name="Code_userPerVacc" />
+          </Key>
+          <Property Name="Code_userPerVacc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeUser_userPerVacc" Type="int" Nullable="false" />
+          <Property Name="CodeVacc_userPerVacc" Type="int" Nullable="false" />
+          <Property Name="Date_userPerVacc" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vaccination">
+          <Key>
+            <PropertyRef Name="Code_vacc" />
+          </Key>
+          <Property Name="Code_vacc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description_vacc" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_UserPerCoronaTest_CoronaTest">
+          <End Role="CoronaTest" Type="Self.CoronaTest" Multiplicity="1" />
+          <End Role="UserPerCoronaTest" Type="Self.UserPerCoronaTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CoronaTest">
+              <PropertyRef Name="Code_coronaTest" />
+            </Principal>
+            <Dependent Role="UserPerCoronaTest">
+              <PropertyRef Name="CodeCT_userPerCT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPerCoronaTest_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPerCoronaTest" Type="Self.UserPerCoronaTest" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Code_user" />
+            </Principal>
+            <Dependent Role="UserPerCoronaTest">
+              <PropertyRef Name="Code_userPerCT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPerVaccination_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPerVaccination" Type="Self.UserPerVaccination" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Code_user" />
+            </Principal>
+            <Dependent Role="UserPerVaccination">
+              <PropertyRef Name="Code_userPerVacc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPerVaccination_Vaccination">
+          <End Role="Vaccination" Type="Self.Vaccination" Multiplicity="1" />
+          <End Role="UserPerVaccination" Type="Self.UserPerVaccination" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Vaccination">
+              <PropertyRef Name="Code_vacc" />
+            </Principal>
+            <Dependent Role="UserPerVaccination">
+              <PropertyRef Name="Code_userPerVacc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HMOModelStoreContainer">
+          <EntitySet Name="CoronaTest" EntityType="Self.CoronaTest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPerCoronaTest" EntityType="Self.UserPerCoronaTest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPerVaccination" EntityType="Self.UserPerVaccination" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vaccination" EntityType="Self.Vaccination" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_UserPerCoronaTest_CoronaTest" Association="Self.FK_UserPerCoronaTest_CoronaTest">
+            <End Role="CoronaTest" EntitySet="CoronaTest" />
+            <End Role="UserPerCoronaTest" EntitySet="UserPerCoronaTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPerCoronaTest_User" Association="Self.FK_UserPerCoronaTest_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPerCoronaTest" EntitySet="UserPerCoronaTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPerVaccination_User" Association="Self.FK_UserPerVaccination_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPerVaccination" EntitySet="UserPerVaccination" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPerVaccination_Vaccination" Association="Self.FK_UserPerVaccination_Vaccination">
+            <End Role="Vaccination" EntitySet="Vaccination" />
+            <End Role="UserPerVaccination" EntitySet="UserPerVaccination" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HMOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CoronaTest">
+          <Key>
+            <PropertyRef Name="Code_coronaTest" />
+          </Key>
+          <Property Name="Code_coronaTest" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description_coronaTest" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserPerCoronaTest" Relationship="Self.FK_UserPerCoronaTest_CoronaTest" FromRole="CoronaTest" ToRole="UserPerCoronaTest" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Code_user" />
+          </Key>
+          <Property Name="Code_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName_user" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="LastName_user" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ID_user" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DateOfBirth_user" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="City_user" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Address_user" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserPerCoronaTest" Relationship="Self.FK_UserPerCoronaTest_User" FromRole="User" ToRole="UserPerCoronaTest" />
+          <NavigationProperty Name="UserPerVaccination" Relationship="Self.FK_UserPerVaccination_User" FromRole="User" ToRole="UserPerVaccination" />
+        </EntityType>
+        <EntityType Name="UserPerCoronaTest">
+          <Key>
+            <PropertyRef Name="Code_userPerCT" />
+          </Key>
+          <Property Name="Code_userPerCT" Type="Int32" Nullable="false" />
+          <Property Name="CodeUser_userPerCT" Type="Int32" Nullable="false" />
+          <Property Name="CodeCT_userPerCT" Type="Int32" Nullable="false" />
+          <Property Name="Date_userPerCT" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Result_userPerCT" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CoronaTest" Relationship="Self.FK_UserPerCoronaTest_CoronaTest" FromRole="UserPerCoronaTest" ToRole="CoronaTest" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserPerCoronaTest_User" FromRole="UserPerCoronaTest" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserPerVaccination">
+          <Key>
+            <PropertyRef Name="Code_userPerVacc" />
+          </Key>
+          <Property Name="Code_userPerVacc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeUser_userPerVacc" Type="Int32" Nullable="false" />
+          <Property Name="CodeVacc_userPerVacc" Type="Int32" Nullable="false" />
+          <Property Name="Date_userPerVacc" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserPerVaccination_User" FromRole="UserPerVaccination" ToRole="User" />
+          <NavigationProperty Name="Vaccination" Relationship="Self.FK_UserPerVaccination_Vaccination" FromRole="UserPerVaccination" ToRole="Vaccination" />
+        </EntityType>
+        <EntityType Name="Vaccination">
+          <Key>
+            <PropertyRef Name="Code_vacc" />
+          </Key>
+          <Property Name="Code_vacc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description_vacc" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserPerVaccination" Relationship="Self.FK_UserPerVaccination_Vaccination" FromRole="Vaccination" ToRole="UserPerVaccination" />
+        </EntityType>
+        <Association Name="FK_UserPerCoronaTest_CoronaTest">
+          <End Role="CoronaTest" Type="Self.CoronaTest" Multiplicity="1" />
+          <End Role="UserPerCoronaTest" Type="Self.UserPerCoronaTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CoronaTest">
+              <PropertyRef Name="Code_coronaTest" />
+            </Principal>
+            <Dependent Role="UserPerCoronaTest">
+              <PropertyRef Name="CodeCT_userPerCT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPerCoronaTest_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPerCoronaTest" Type="Self.UserPerCoronaTest" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Code_user" />
+            </Principal>
+            <Dependent Role="UserPerCoronaTest">
+              <PropertyRef Name="Code_userPerCT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPerVaccination_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPerVaccination" Type="Self.UserPerVaccination" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Code_user" />
+            </Principal>
+            <Dependent Role="UserPerVaccination">
+              <PropertyRef Name="Code_userPerVacc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPerVaccination_Vaccination">
+          <End Role="Vaccination" Type="Self.Vaccination" Multiplicity="1" />
+          <End Role="UserPerVaccination" Type="Self.UserPerVaccination" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Vaccination">
+              <PropertyRef Name="Code_vacc" />
+            </Principal>
+            <Dependent Role="UserPerVaccination">
+              <PropertyRef Name="Code_userPerVacc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HMOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CoronaTest" EntityType="Self.CoronaTest" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="UserPerCoronaTest" EntityType="Self.UserPerCoronaTest" />
+          <EntitySet Name="UserPerVaccination" EntityType="Self.UserPerVaccination" />
+          <EntitySet Name="Vaccination" EntityType="Self.Vaccination" />
+          <AssociationSet Name="FK_UserPerCoronaTest_CoronaTest" Association="Self.FK_UserPerCoronaTest_CoronaTest">
+            <End Role="CoronaTest" EntitySet="CoronaTest" />
+            <End Role="UserPerCoronaTest" EntitySet="UserPerCoronaTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPerCoronaTest_User" Association="Self.FK_UserPerCoronaTest_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPerCoronaTest" EntitySet="UserPerCoronaTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPerVaccination_User" Association="Self.FK_UserPerVaccination_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPerVaccination" EntitySet="UserPerVaccination" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPerVaccination_Vaccination" Association="Self.FK_UserPerVaccination_Vaccination">
+            <End Role="Vaccination" EntitySet="Vaccination" />
+            <End Role="UserPerVaccination" EntitySet="UserPerVaccination" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HMOModelStoreContainer" CdmEntityContainer="HMOEntities">
+          <EntitySetMapping Name="CoronaTest">
+            <EntityTypeMapping TypeName="HMOModel.CoronaTest">
+              <MappingFragment StoreEntitySet="CoronaTest">
+                <ScalarProperty Name="Code_coronaTest" ColumnName="Code_coronaTest" />
+                <ScalarProperty Name="Description_coronaTest" ColumnName="Description_coronaTest" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="HMOModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Code_user" ColumnName="Code_user" />
+                <ScalarProperty Name="FirstName_user" ColumnName="FirstName_user" />
+                <ScalarProperty Name="LastName_user" ColumnName="LastName_user" />
+                <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+                <ScalarProperty Name="DateOfBirth_user" ColumnName="DateOfBirth_user" />
+                <ScalarProperty Name="City_user" ColumnName="City_user" />
+                <ScalarProperty Name="Address_user" ColumnName="Address_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPerCoronaTest">
+            <EntityTypeMapping TypeName="HMOModel.UserPerCoronaTest">
+              <MappingFragment StoreEntitySet="UserPerCoronaTest">
+                <ScalarProperty Name="Code_userPerCT" ColumnName="Code_userPerCT" />
+                <ScalarProperty Name="CodeUser_userPerCT" ColumnName="CodeUser_userPerCT" />
+                <ScalarProperty Name="CodeCT_userPerCT" ColumnName="CodeCT_userPerCT" />
+                <ScalarProperty Name="Date_userPerCT" ColumnName="Date_userPerCT" />
+                <ScalarProperty Name="Result_userPerCT" ColumnName="Result_userPerCT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPerVaccination">
+            <EntityTypeMapping TypeName="HMOModel.UserPerVaccination">
+              <MappingFragment StoreEntitySet="UserPerVaccination">
+                <ScalarProperty Name="Code_userPerVacc" ColumnName="Code_userPerVacc" />
+                <ScalarProperty Name="CodeUser_userPerVacc" ColumnName="CodeUser_userPerVacc" />
+                <ScalarProperty Name="CodeVacc_userPerVacc" ColumnName="CodeVacc_userPerVacc" />
+                <ScalarProperty Name="Date_userPerVacc" ColumnName="Date_userPerVacc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vaccination">
+            <EntityTypeMapping TypeName="HMOModel.Vaccination">
+              <MappingFragment StoreEntitySet="Vaccination">
+                <ScalarProperty Name="Code_vacc" ColumnName="Code_vacc" />
+                <ScalarProperty Name="Description_vacc" ColumnName="Description_vacc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
