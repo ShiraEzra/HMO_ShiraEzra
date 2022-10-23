@@ -100,6 +100,8 @@ namespace HMO_ShiraEzra
             // 
             // display_btn
             // 
+            this.display_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.display_btn.ForeColor = System.Drawing.Color.Fuchsia;
             this.display_btn.Location = new System.Drawing.Point(370, 260);
             this.display_btn.Name = "display_btn";
             this.display_btn.Size = new System.Drawing.Size(111, 46);
@@ -110,6 +112,8 @@ namespace HMO_ShiraEzra
             // 
             // update_btn
             // 
+            this.update_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.update_btn.ForeColor = System.Drawing.Color.Fuchsia;
             this.update_btn.Location = new System.Drawing.Point(223, 260);
             this.update_btn.Name = "update_btn";
             this.update_btn.Size = new System.Drawing.Size(111, 46);
@@ -120,6 +124,8 @@ namespace HMO_ShiraEzra
             // 
             // delete_btn
             // 
+            this.delete_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.delete_btn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.delete_btn.Location = new System.Drawing.Point(146, 343);
             this.delete_btn.Name = "delete_btn";
             this.delete_btn.Size = new System.Drawing.Size(111, 46);
@@ -130,6 +136,8 @@ namespace HMO_ShiraEzra
             // 
             // new_btn
             // 
+            this.new_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.new_btn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.new_btn.Location = new System.Drawing.Point(293, 343);
             this.new_btn.Name = "new_btn";
             this.new_btn.Size = new System.Drawing.Size(111, 46);
